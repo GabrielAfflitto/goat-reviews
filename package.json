@@ -1,0 +1,23 @@
+{
+  "name": "goat-reviews",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.3",
+    "querystring": "^0.2.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "react-toolbox": "^2.0.0-beta.12",
+    "react-uikit-button": "^2.0.2",
+    "request": "^2.85.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
