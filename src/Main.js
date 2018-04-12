@@ -2,18 +2,23 @@ import React, {Component} from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import Artists from './Artists'
 import Home from './Home'
-// import {Albums} from './Albums'
 
 
-const Main = () => (
-  <main>
-    <Router>
-      <Switch>
-        <Route path='/artists' component={Artists}/>
-        <Route path='/' component={Home} />
-      </Switch>
-    </Router>
-  </main>
-)
+const Main = (props) => {
+  return(
+    <main>
+      <Router>
+        <Switch>
+          <Route exact path='/artists' component={Artists}/>
+          <Route path='/artists/:id' render={(props) => {
+            return (JSON.stringify(props.match.params))
+          }}/>
+          <Route exact path='/' render={() =>
+            (<Home artists={props.names} />)}/>
+        </Switch>
+      </Router>
+    </main>
+  )
+}
 
 export default Main;

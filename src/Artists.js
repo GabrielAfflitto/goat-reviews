@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import {Route, Link} from 'react-router-dom';
 
 class Artists extends Component {
+
 
   constructor() {
     super()
@@ -22,7 +24,7 @@ class Artists extends Component {
   render() {
     return (
       <div className="Artists">
-      {this.renderedArtists()}
+        {this.renderedArtists()}
       </div>
     );
   }
@@ -30,7 +32,7 @@ class Artists extends Component {
   renderedArtists(){
     return this.state.artists.map(artist => (
       <div>
-        <p>{artist.name}</p>
+        <Link to={`/artists/${artist.id}`}>{artist.name}</Link>
         <p>{artist.id}</p>
       </div>
     ))
