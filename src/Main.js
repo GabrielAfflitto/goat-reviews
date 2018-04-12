@@ -13,8 +13,8 @@ const Main = (props) => {
           <Route path='/artists/:id' render={(props) => {
             return (JSON.stringify(props.match.params))
           }}/>
-          <Route exact path='/' render={() =>
-            (<Home artists={props.names} />)}/>
+          <Route exact path='/' render={(routerProps) =>
+            (<Home artists={props.names} {...routerProps}/>)}/>
         </Switch>
       </Router>
     </main>
