@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 
 
 class Search extends Component {
@@ -13,7 +12,7 @@ class Search extends Component {
 
   render() {
     return(
-    <form>
+    <form onSubmit={this.artistLink}>
       <input list="data" placeholder="search by artist" value={this.state.artistSearch} onChange={this.handleChange}/>
       <datalist id="data">
       {this.nameList()}
@@ -21,6 +20,17 @@ class Search extends Component {
       <button>Submit</button>
     </form>
     )
+  }
+
+  artistLink = (event) => {
+    event.preventDefault()
+    let artists = this.props.artists
+    let val = this.state.artistSearch
+    artists.forEach(artist => {
+      if(artist.name.toLowerCase() === val.toLowerCase()) {
+        this.props.onSelect(artist)
+      }
+    })
   }
 
   nameList = () => {
