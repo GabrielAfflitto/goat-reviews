@@ -1,22 +1,30 @@
 import React, {Component} from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
-import Artists from './Artists'
+import Login from './Login';
+import SingleArtist from './SingleArtist';
 import Home from './Home'
 
+const homeRoute = (props) => {
+  if(!props.user){
+    return(
+      <Route path='/' render={() => <Login setUser={props.setUser}/>}/>
+    )
+  } else {
+    return(
+      <Route exact path='/' render={(routerProps) =>
+        (<Home artists={props.names} {...routerProps}/>)}/>
+      )
+    }
+  }
 
 const Main = (props) => {
-  return(
+
+  return (
     <main>
-      <Router>
         <Switch>
-          <Route exact path='/artists' component={Artists}/>
-          <Route path='/artists/:id' render={(props) => {
-            return (JSON.stringify(props.match.params))
-          }}/>
-          <Route exact path='/' render={(routerProps) =>
-            (<Home artists={props.names} {...routerProps}/>)}/>
+          <Route path='/artists/:id' render={(routerProps) => <SingleArtist {...routerProps} {...props}/>}/>
+          {homeRoute(props)}
         </Switch>
-      </Router>
     </main>
   )
 }
