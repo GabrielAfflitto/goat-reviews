@@ -13,7 +13,7 @@ class Navbar extends Component {
     return (
       <div>
         <a href="/">Home</a>
-        <a href="/artists">Artists</a>
+        <button onClick={() => this.props.setUser(null)}>Logout</button>
         <a href="/dashboard">Dashboard</a>
       </div>
     )
