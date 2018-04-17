@@ -29,7 +29,8 @@ class Login extends Component {
   render() {
     return(
       <div>
-        <h1>GOAT Reviews</h1>
+        <h1>GOAT Reviews 🐐</h1>
+        <h3>Find and review your favorite Hip Hop albums</h3>
         <div className="login-btn">
           <GoogleLogin
             className="google-lgn"

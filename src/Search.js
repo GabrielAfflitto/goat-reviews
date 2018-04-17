@@ -14,9 +14,9 @@ class Search extends Component {
     return(
     <form onSubmit={this.artistLink}>
       <input list="data" placeholder="search by artist" value={this.state.artistSearch} onChange={this.handleChange}/>
-      <datalist id="data">
-      {this.nameList()}
-      </datalist>
+        <datalist id="data">
+          {this.nameList()}
+        </datalist>
       <button>Submit</button>
     </form>
     )
