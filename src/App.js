@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   getArtists = () => {
-    fetch('https://cors-anywhere.herokuapp.com/https://goat-reviews-api.herokuapp.com/api/v1/artists')
+    fetch('http://localhost:4000/api/v1/artists')
     .then((response) => response.json())
     .then((data) => this.setState({artists: data.artists}))
     .then(() => this.artistNames())
@@ -45,7 +45,7 @@ class App extends Component {
       <div>
         <Router>
           <div>
-            <Navbar setUser={this.setUser}/>
+            <Navbar setUser={this.setUser} user={this.state.user}/>
             <Main names={this.state.names} artists={this.state.artists} setUser={this.setUser} user={this.state.user}/>
           </div>
         </Router>

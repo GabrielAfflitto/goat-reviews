@@ -9,11 +9,19 @@ class Navbar extends Component {
       }
   }
 
+  renderLogout() {
+    if(this.props.user !== null){
+      return(
+        <button onClick={() => this.props.setUser(null)}>Logout</button>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
         <a href="/">Home</a>
-        <button onClick={() => this.props.setUser(null)}>Logout</button>
+        {this.renderLogout()}
         <a href="/dashboard">Dashboard</a>
       </div>
     )
