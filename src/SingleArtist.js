@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ToggleDisplay from 'react-toggle-display';
+import './styles/SingleArtist.css';
+import spotify from './images/spotify.png';
 
 class SingleArtist extends Component {
   constructor() {
@@ -29,10 +31,12 @@ class SingleArtist extends Component {
               <h2>{this.artist()[0].name}</h2>
               <div className='lists'>
                 <div className='songs'>
-                  <h4>Sample Songs</h4>
+                  <h4 className="topright">Notable Songs</h4>
                     {this.songs(this.artist()[0])}
-                  <h4>Albums</h4>
-                    {this.albums(this.artist()[0])}
+                </div>
+                <h4>Albums</h4>
+                <div className="albums">
+                  {this.albums(this.artist()[0])}
                 </div>
               </div>
             </div>
@@ -50,14 +54,13 @@ class SingleArtist extends Component {
   }
 
   user(id){
-    this.state.users.find(user => user.id === id)
+    return this.state.users.find(user => user.id === id)
   }
 
   renderReviews(album){
     if(album.reviews.length){
       return album.reviews.map((review) => {
         return <div>
-          <h3>Reviews</h3>
           <p>Reviewed by {this.user(review.user_id)}</p>
           <p>Rating: {review.rating}</p>
           <p className="review-body">{review.body}</p>
@@ -73,11 +76,12 @@ class SingleArtist extends Component {
         <li><a href={`https://open.spotify.com/album/${album.spotify}`} target='_blank'>Spotify</a></li>
         <ToggleDisplay show={this.state.show === album.id}>
           <form className="review-form" onSubmit={this.postReview}>
-            <p>What did you think of this album?</p>
-            Comments <textarea rows="4" columns="50" placeholder="comment" name="body">
+            <strong>What did you think of this album?</strong>
+            Comments <textarea placeholder="comment" name="body">
             </textarea>
             Rating <input type="number" min='1' max='5' name="rating"/>
           </form>
+          <h3>Reviews</h3>
           {this.renderReviews(album)}
         </ToggleDisplay>
       </ul>
@@ -85,7 +89,6 @@ class SingleArtist extends Component {
   }
 
   postReview(event) {
-    // event.preventDefault()
     let body = event.target.children.body.value
     let rating = event.target.children.rating.value
     let req = {body, rating, user_id: 1}
@@ -104,10 +107,10 @@ class SingleArtist extends Component {
 
   songs(artist){
     return artist.songs.map((song) => {
-      return <ul>
-        <li>{song.name} ({song.year})</li>
-        <li><a href={`https://open.spotify.com/album/${song.spotify}`} target='_blank'>Spotify</a></li>
-      </ul>
+      return <table>
+        <td>{song.name} ({song.year})</td>
+        <td><a href={`https://open.spotify.com/song/${song.spotify}`} target='_blank'><img src={spotify} className="spotify"></img></a></td>
+      </table>
     })
   }
 
