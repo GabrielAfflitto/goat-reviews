@@ -29,11 +29,14 @@ class SingleArtist extends Component {
           <div className="artist">
             <div className="artist-info">
               <h2>{this.artist()[0].name}</h2>
-              <div className='lists'>
+              <div className="artist-cont">
+                <img src={this.artist()[0].image} className="artist"></img>
                 <div className='songs'>
                   <h4 className="topright">Notable Songs</h4>
                     {this.songs(this.artist()[0])}
                 </div>
+              </div>
+              <div className='lists'>
                 <h4>Albums</h4>
                 <div className="albums">
                   {this.albums(this.artist()[0])}
@@ -46,8 +49,12 @@ class SingleArtist extends Component {
     }
   }
 
+  componentDidMount(){
+    this.getUsers()
+  }
+
   getUsers() {
-    fetch(`http://localhost:4000/api/v1/users`)
+    fetch(`https://goat-reviews-api.herokuapp.com/api/v1/users`)
       .then((response) => response.json())
       .then((data) => this.setState({users: data.users}))
       .catch((error) => console.error({error}))
@@ -60,8 +67,9 @@ class SingleArtist extends Component {
   renderReviews(album){
     if(album.reviews.length){
       return album.reviews.map((review) => {
+        const user = this.user(review.user_id);
         return <div>
-          <p>Reviewed by {this.user(review.user_id)}</p>
+          <p>Reviewed by {user.name}</p>
           <p>Rating: {review.rating}</p>
           <p className="review-body">{review.body}</p>
         </div>
@@ -88,12 +96,13 @@ class SingleArtist extends Component {
     })
   }
 
-  postReview(event) {
+  postReview = (event) => {
     let body = event.target.children.body.value
     let rating = event.target.children.rating.value
-    let req = {body, rating, user_id: 1}
-    let albumId = event.target.parentElement.parentElement.id.slice(-1)
-    fetch(`http://localhost:4000/api/v1/albums/${albumId}/reviews`, {
+    let user_id = this.props.user
+    let req = {body, rating, user_id }
+    let albumId = event.target.parentElement.parentElement.id.split('-')[1]
+    fetch(`https://goat-reviews-api.herokuapp.com/api/v1/albums/${albumId}/reviews`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

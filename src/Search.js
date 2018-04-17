@@ -18,7 +18,7 @@ class Search extends Component {
         <datalist id="data">
           {this.nameList()}
         </datalist>
-      <button className="submit"><i class="fa fa-search"></i></button>
+      <button className="submit"><i className="fa fa-search"></i></button>
     </form>
     )
   }
