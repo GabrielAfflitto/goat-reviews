@@ -5,7 +5,8 @@ class SingleArtist extends Component {
   constructor() {
     super()
     this.state = {
-      show: null
+      show: null,
+      users: []
     }
   }
 
@@ -41,11 +42,15 @@ class SingleArtist extends Component {
     }
   }
 
-  getUser(id) {
-    fetch(`http://localhost:4000/api/v1/users/${id}`)
+  getUsers() {
+    fetch(`http://localhost:4000/api/v1/users`)
       .then((response) => response.json())
-      .then((data) => cors)
+      .then((data) => this.setState({users: data.users}))
       .catch((error) => console.error({error}))
+  }
+
+  user(id){
+    this.state.users.find(user => user.id === id)
   }
 
   renderReviews(album){
@@ -53,8 +58,8 @@ class SingleArtist extends Component {
       return album.reviews.map((review) => {
         return <div>
           <h3>Reviews</h3>
+          <p>Reviewed by {this.user(review.user_id)}</p>
           <p>Rating: {review.rating}</p>
-          <p>Reviewed by {this.getUser(review.user_id)}</p>
           <p className="review-body">{review.body}</p>
         </div>
       })
@@ -63,14 +68,38 @@ class SingleArtist extends Component {
 
   albums(artist) {
     return artist.albums.map((album) => {
-      return <ul onClick={() => this.handleClick(album.id)}>
+      return <ul onClick={() => this.handleClick(album.id)} id={`album-${album.id}`}>
         <li>{album.name} ({album.year})</li>
         <li><a href={`https://open.spotify.com/album/${album.spotify}`} target='_blank'>Spotify</a></li>
         <ToggleDisplay show={this.state.show === album.id}>
+          <form className="review-form" onSubmit={this.postReview}>
+            <p>What did you think of this album?</p>
+            Comments <textarea rows="4" columns="50" placeholder="comment" name="body">
+            </textarea>
+            Rating <input type="number" min='1' max='5' name="rating"/>
+          </form>
           {this.renderReviews(album)}
         </ToggleDisplay>
       </ul>
     })
+  }
+
+  postReview(event) {
+    // event.preventDefault()
+    let body = event.target.children.body.value
+    let rating = event.target.children.rating.value
+    let req = {body, rating, user_id: 1}
+    let albumId = event.target.parentElement.parentElement.id.slice(-1)
+    fetch(`http://localhost:4000/api/v1/albums/${albumId}/reviews`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      mode: 'cors',
+      body: JSON.stringify(req)
+    }).then((response) => response.json())
+      .catch((error) => console.error({error}))
   }
 
   songs(artist){
