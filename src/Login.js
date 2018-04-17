@@ -15,12 +15,12 @@ class Login extends Component {
     let userId;
     PostUser(userData, response.accessToken)
       .then(res => {
-        userId = JSON.parse(res).id
+        userId = JSON.parse(res).user.id
         this.validateUser(userId, userData, response)
       })
     }
 
-    validateUser = (userId, userData, response) => {
+  validateUser = (userId, userData, response) => {
       if (userData.token === response.accessToken) {
         this.props.setUser(userId)
     }
@@ -29,8 +29,8 @@ class Login extends Component {
   render() {
     return(
       <div>
-        <div className="hero-image">
-          <div className="hero-text">
+        <div>
+          <div>
             <h1 className="title">GOAT Reviews 🐐</h1>
             <h3 className="message">Find and review your favorite Hip Hop albums</h3>
           </div>
