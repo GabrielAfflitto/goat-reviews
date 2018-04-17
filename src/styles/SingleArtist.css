@@ -1,7 +1,11 @@
 .songs {
-  position: absolute;
-  right: 100px;
   height: 120px;
+}
+
+.artist-cont {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
 }
 
 .albums {
@@ -27,6 +31,10 @@ img.spotify {
 .review-form {
   width: 50%;
   margin-right: -300px;
+}
+
+ul:hover {
+  cursor: pointer;
 }
 
 textarea {
