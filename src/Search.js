@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import './styles/Search.css'
 
 
 class Search extends Component {
@@ -13,11 +14,11 @@ class Search extends Component {
   render() {
     return(
     <form onSubmit={this.artistLink}>
-      <input list="data" placeholder="search by artist" value={this.state.artistSearch} onChange={this.handleChange}/>
+      <input list="data" placeholder="search by artist" value={this.state.artistSearch} onChange={this.handleChange} className="search"/>
         <datalist id="data">
           {this.nameList()}
         </datalist>
-      <button>Submit</button>
+      <button className="submit"><i class="fa fa-search"></i></button>
     </form>
     )
   }

@@ -12,17 +12,16 @@ class Navbar extends Component {
   renderLogout() {
     if(this.props.user !== null){
       return(
-        <button onClick={() => this.props.setUser(null)}>Logout</button>
+        <button onClick={() => this.props.setUser(null)} className="w3-bar-item w3-button w3-padding-large">Logout</button>
       )
     }
   }
 
   render() {
     return (
-      <div>
-        <a href="/">Home</a>
+      <div className="w3-bar w3-black w3-card">
+        <a href="/" className="w3-bar-item w3-button w3-padding-large">Home</a>
         {this.renderLogout()}
-        <a href="/dashboard">Dashboard</a>
       </div>
     )
   }
