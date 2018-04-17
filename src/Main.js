@@ -5,16 +5,10 @@ import SingleArtist from './SingleArtist';
 import Home from './Home'
 
 const homeRoute = (props) => {
-  if(!props.user){
-    return(
-      <Route path='/' render={() => <Login setUser={props.setUser}/>}/>
+  return(
+    <Route exact path='/' render={(routerProps) =>
+      (<Home artists={props.names} {...routerProps}/>)}/>
     )
-  } else {
-    return(
-      <Route exact path='/' render={(routerProps) =>
-        (<Home artists={props.names} {...routerProps}/>)}/>
-      )
-    }
   }
 
 const Main = (props) => {
