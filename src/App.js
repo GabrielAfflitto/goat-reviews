@@ -11,21 +11,24 @@ class App extends Component {
     this.state = {
       artists: [],
       names: [],
-      user: localStorage.getItem('userId')
+      user: null
     }
   }
 
   setUser = (user) => {
     this.setState({user: user})
-    localStorage.setItem('userId', user)
+    const jsonUser = JSON.stringify(user)
+    localStorage.setItem('userId', jsonUser)
   }
 
   componentDidMount() {
-    this.getArtists()
+    this.getArtists();
+    const user = localStorage.getItem('userId');
+    this.setState({user: user })
   }
 
   getArtists = () => {
-    fetch('http://localhost:4000/api/v1/artists')
+    fetch('https://goat-reviews-api.herokuapp.com/api/v1/artists')
     .then((response) => response.json())
     .then((data) => this.setState({artists: data.artists}))
     .then(() => this.artistNames())
@@ -46,7 +49,8 @@ class App extends Component {
         <Router>
           <div>
             <Navbar setUser={this.setUser} user={this.state.user}/>
-            <Main names={this.state.names} artists={this.state.artists} setUser={this.setUser} user={this.state.user}/>
+            {!this.state.user && <Login setUser={this.setUser}/>}
+            {this.state.user && <Main names={this.state.names} artists={this.state.artists} setUser={this.setUser} user={this.state.user}/>}
           </div>
         </Router>
       </div>
