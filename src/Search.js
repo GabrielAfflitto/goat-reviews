@@ -36,7 +36,7 @@ class Search extends Component {
 
   nameList = () => {
     return this.props.artists.map(artist => {
-      return <option value={`${artist.name}`}/>
+      return <option value={`${artist.name}`} key={artist.id}/>
     })
   }
 
