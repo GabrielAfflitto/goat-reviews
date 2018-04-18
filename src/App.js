@@ -15,6 +15,18 @@ class App extends Component {
     }
   }
 
+  addReview = (artistId, review) => {
+    const newArray = this.state.artists.map((artist) => {
+      if(artist.id !== artistId) return artist
+      artist.albums.forEach((album) => {
+        if(album.id !== review.album_id) return album
+        album.reviews.push(review)
+      })
+      return artist
+    })
+    this.setState({artists: newArray})
+  }
+
   setUser = (user) => {
     this.setState({user: user})
     const jsonUser = JSON.stringify(user)
@@ -50,7 +62,7 @@ class App extends Component {
           <div>
             <Navbar setUser={this.setUser} user={this.state.user}/>
             {!this.state.user && <Login setUser={this.setUser}/>}
-            {this.state.user && <Main names={this.state.names} artists={this.state.artists} setUser={this.setUser} user={this.state.user}/>}
+            {this.state.user && <Main names={this.state.names} artists={this.state.artists} setUser={this.setUser} user={this.state.user} addReview={this.addReview}/>}
           </div>
         </Router>
       </div>

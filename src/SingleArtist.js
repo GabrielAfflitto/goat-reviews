@@ -22,6 +22,7 @@ class SingleArtist extends Component {
     return this.props.artists.filter(artist => artist.id == this.props.match.params.id)
   }
 
+
   info() {
     if(this.artist().length){
       return(
@@ -68,7 +69,7 @@ class SingleArtist extends Component {
     if(album.reviews.length){
       return album.reviews.map((review) => {
         const user = this.user(review.user_id);
-        return <div>
+        return <div key={review.id}>
           <p>Reviewed by {user.name}</p>
           <p>Rating: {review.rating}</p>
           <p className="review-body">{review.body}</p>
@@ -79,7 +80,7 @@ class SingleArtist extends Component {
 
   albums(artist) {
     return artist.albums.map((album) => {
-      return <ul onClick={() => this.handleClick(album.id)} id={`album-${album.id}`}>
+      return <ul onClick={() => this.handleClick(album.id)} id={`album-${album.id}`} key={album.id}>
         <li>{album.name} ({album.year})</li>
         <li><a href={`https://open.spotify.com/album/${album.spotify}`} target='_blank'>Spotify</a></li>
         <ToggleDisplay show={this.state.show === album.id}>
@@ -97,6 +98,7 @@ class SingleArtist extends Component {
   }
 
   postReview = (event) => {
+    setTimeout('', 5000)
     let body = event.target.children.body.value
     let rating = event.target.children.rating.value
     let user_id = this.props.user
@@ -111,12 +113,13 @@ class SingleArtist extends Component {
       mode: 'cors',
       body: JSON.stringify(req)
     }).then((response) => response.json())
+      .then((data) => this.props.addReview(this.artist().id, data))
       .catch((error) => console.error({error}))
   }
 
   songs(artist){
     return artist.songs.map((song) => {
-      return <table>
+      return <table key={song.id}>
         <td>{song.name} ({song.year})</td>
         <td><a href={`https://open.spotify.com/song/${song.spotify}`} target='_blank'><img src={spotify} className="spotify"></img></a></td>
       </table>
