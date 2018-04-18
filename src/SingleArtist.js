@@ -16,12 +16,12 @@ class SingleArtist extends Component {
     this.setState({
       show: id
     });
+    document.getElementById(`album-${id}`).classList.toggle('gray')
   }
 
   artist() {
     return this.props.artists.filter(artist => artist.id == this.props.match.params.id)
   }
-
 
   info() {
     if(this.artist().length){
@@ -70,7 +70,7 @@ class SingleArtist extends Component {
       return album.reviews.map((review) => {
         const user = this.user(review.user_id);
         return <div key={review.id}>
-          <h6>Rating: {review.rating}</h6>
+          <h6 className="rating">Rating: {review.rating}</h6>
           <h6 className="review-body">{review.body}</h6>
         </div>
       })
@@ -82,18 +82,18 @@ class SingleArtist extends Component {
       return <ul onClick={() => this.handleClick(album.id)} id={`album-${album.id}`} key={album.id}>
         <li className="album">{album.name} ({album.year})</li>
         <li className="spot"><a href={`https://open.spotify.com/album/${album.spotify}`} target='_blank'><img src={spotify} className="spotify" alt="spotify icon"></img></a></li>
-        <ToggleDisplay show={this.state.show === album.id}>
+        <li><ToggleDisplay show={this.state.show === album.id}>
           <div className="popup">
             <form className="review-form" onSubmit={this.postReview}>
               <strong>What did you think of this album?</strong>
               <textarea placeholder="comment" name="body">
               </textarea>
-              Rating <input type="number" min='1' max='5' name="rating"/>
+              Rating <input type="number" min='1' max='10' name="rating"/>
             </form>
           <h3>Reviews</h3>
           {this.renderReviews(album)}
           </div>
-        </ToggleDisplay>
+        </ToggleDisplay></li>
       </ul>
     })
   }
