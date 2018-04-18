@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
-import Login from './Login';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom'
 import SingleArtist from './SingleArtist';
 import Home from './Home'
 
