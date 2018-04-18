@@ -2,10 +2,16 @@
   height: 120px;
 }
 
+h1.artist-name {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+
 .artist-cont {
   display: flex;
   justify-content: space-between;
-  padding: 20px 30px;
+  padding: 20px 60px;
 }
 
 .albums {
@@ -31,6 +37,35 @@ img.spotify {
 .review-form {
   width: 50%;
   margin-right: -300px;
+}
+
+.review-body {
+  margin-left: 10px;
+}
+
+.album-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.popup {
+  margin-top: 100px;
+}
+
+ul {
+  list-style: none;
+}
+
+li.album {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+li.spot {
+  padding-top: 8px;
+  padding-left: 5px;
 }
 
 ul:hover {

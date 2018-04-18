@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import GoogleLogin from 'react-google-login';
 import {PostUser} from './PostUser';
-import App from './App';
 import './styles/Login.css';
 
 class Login extends Component {
@@ -30,9 +29,9 @@ class Login extends Component {
   render() {
     return(
       <div>
-        <div>
-          <div>
-            <h1 className="title">GOAT Reviews 🐐</h1>
+        <div className="login-hero">
+          <div className="login-text">
+            <h1 className="title">GOAT Reviews <span role="img" aria-label="goat">🐐</span></h1>
             <h3 className="message">Find and review your favorite Hip Hop albums</h3>
           </div>
         </div>

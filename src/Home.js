@@ -13,7 +13,7 @@ class Home extends Component {
     return (
       <div className="hero-image">
         <div className="hero-text">
-          <h1>GOAT Reviews 🐐</h1>
+          <h1>GOAT Reviews <span role="img" aria-label="goat">🐐</span></h1>
           <h3>Find and review your favorite Hip Hop albums</h3>
           <Search artists={this.props.artists} onSelect={this.onSelect}/>
         </div>
