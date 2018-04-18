@@ -7,6 +7,7 @@ import './styles/Login.css';
 class Login extends Component {
 
   signIn = (response) => {
+    console.log(response)
     let userData = {
       'name': response.w3.ofa,
       'email': response.w3.U3,
