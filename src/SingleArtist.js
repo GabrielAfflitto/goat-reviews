@@ -99,11 +99,13 @@ class SingleArtist extends Component {
   }
 
   postReview = (event) => {
+    event.preventDefault();
+    setTimeout(() => window.location.reload(), 1000);
     let body = event.target.children.body.value
     let rating = event.target.children.rating.value
     let user_id = this.props.user
     let req = {body, rating, user_id }
-    let albumId = event.target.parentElement.parentElement.parentElement.id.split('-')[1]
+    let albumId = event.target.parentElement.parentElement.parentElement.parentElement.id.split('-')[1]
     fetch(`https://goat-reviews-api.herokuapp.com/api/v1/albums/${albumId}/reviews`, {
       method: "POST",
       headers: {
